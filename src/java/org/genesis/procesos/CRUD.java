@@ -6,6 +6,7 @@
 package org.genesis.procesos;
 
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,7 +14,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author orlando
  */
-@Stateful
+@Stateless
 public class CRUD implements CRUDLocal {
 
     @PersistenceContext(unitName = "GenesisWebAppPU")
