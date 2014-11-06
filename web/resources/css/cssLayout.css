@@ -1,0 +1,80 @@
+
+#top {
+    position: relative;
+    background-color: azure;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+#bottom {
+    position: relative;
+    background-color: #c2dfef;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.center_content {
+    position: relative;
+    background-color: whitesmoke;
+    padding: 5px;
+}
+
+.left_content {
+    background-color: whitesmoke;
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.right_content {
+    background-color: whitesmoke;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+#top a:link, #top a:visited {
+  color: white;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+  color: black;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+#menubar{
+    background-color: #045491;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+.inputTextArea{
+    background-color: #045491;
+    font-size: x-large;
+    padding: 5px;
+}
+
+#login{
+    background-color: #045491;
+    padding: 5px;
+    width: 150px;
+    margin: 0px 0px 10px 0px;
+}
+

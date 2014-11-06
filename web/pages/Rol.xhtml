@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">MANTENIMIENTO DE ROL</h1>
+        <h:form id="frmRol">            
+            <!--<p:growl showDetail="true"/>-->
+            <p:tabView id="mainV">
+                <p:tab title="NUEVO">
+                    <h:panelGroup>                            
+                        <p:commandButton update=":frmRol" value="Guardar" 
+                                         action="#{rol.guardarRol()}"
+                                         icon="ui-icon-disk"/>
+                        <p:commandButton update=":frmRol" value="Eliminar"                                         
+                                         icon="ui-icon-trash" 
+                                         rendered="#{rol.banBtnEli}"
+                                         action="#{rol.eliminarRol()}"/>
+                        <p:commandButton update=":frmRol" value="Limpiar"
+                                         icon="ui-icon-arrowrefresh-1-s"
+                                         action="#{rol.limpiarPantalla()}"/>
+
+                    </h:panelGroup>    
+                    <p:separator/>
+                    <h:panelGrid id="enca" columns="6">
+                        <h:panelGroup>
+                            <h:outputLabel value="*Codigo: "/>
+                            <p:inputText value="#{rol.rol.codrol}" 
+                                         maxlength="20"
+                                         readonly="#{rol.banpk}"
+                                         style="width: 110px;"/>
+                            <h:outputLabel value="*Nombre: "/>
+                            <p:inputText value="#{rol.rol.nombre}"/>
+                            <h:outputLabel value="Descripcion: "/>
+                            <p:inputText value="#{rol.rol.descripcion}"
+                                         style="width: 500px;"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <!--Grid para exportar a diferentes formatos begin-->
+                    <h:panelGrid id="grdExport" columns="2">
+                        <h:commandLink id="lnk1">
+                            <p:graphicImage id="imgExport"  alt="Exportar a pdf"
+                                            title="Exportar a pdf"
+                                            url="/resources/imgs/pdf.png" width="24"
+                                            />
+                            <p:dataExporter id="de1" type="pdf" target="tblRoles" fileName="rol"/>
+                        </h:commandLink>
+                        <h:commandLink id="lnk2">
+                            <p:graphicImage id="imgExport2"  alt="Exportar a excel"
+                                            title="Exportar a excel"
+                                            url="/resources/imgs/excel.png" width="24"/>
+                            <p:dataExporter id="de2" type="xls" target="tblRoles" fileName="rol"/>
+                        </h:commandLink>
+                    </h:panelGrid><!--Grid para exportar a diferentes formatos end-->                                                                                                       
+                    <p:dataTable id="tblRoles"
+                                 value="#{rol.lstRoles}" var="lst"
+                                 rows="10" paginator="true"
+                                 binding="#{rol.tblRol}">
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{lst.codrol}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{lst.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <h:outputText value="#{lst.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="width: 70px;">
+                            <p:commandButton id="btnEdi" update=":frmRol:mainV"
+                                             action="#{rol.activarPK()}"
+                                             style="width: 25px; height: 25px;"
+                                             icon="ui-icon-pencil" title="Editar" >                          
+                                <f:setPropertyActionListener value="#{lst}" target="#{rol.rol}"/>
+                            </p:commandButton>   
+                            <p:commandButton id="btnEli" update=":frmRol"
+                                             icon="ui-icon-circle-minus"
+                                             style="width: 25px; height: 25px;"
+                                             action="#{rol.btnEliminarLinea()}"/>
+                        </p:column> 
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="BUSCAR">
+                    Buscar Rol
+                </p:tab>
+            </p:tabView>
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog  id="dlgGen"
+                       header="Alerta"
+                       draggable="false"
+                       binding="#{util.popUpDialMsg}"
+                       resizable="false"
+                       closable="false"
+                       modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage id="imgPopup" binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid id="imgBtnCerr" style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->
+        </h:form>
+    </ui:define>
+
+</ui:composition>

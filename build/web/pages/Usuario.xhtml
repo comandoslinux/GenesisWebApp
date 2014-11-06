@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">MANTENIMIENTO DE USUARIO</h1>
+        <h:form id="frmUser">
+            <!--<p:growl showDetail="true"/>-->
+            <p:tabView id="mainV">
+                <p:tab title="NUEVO">
+                    <h:panelGroup>                            
+                        <p:commandButton update=":frmUser" value="Guardar" 
+                                         action="#{user.guardarUsuario()}"
+                                         icon="ui-icon-disk"/>
+                        <p:commandButton update=":frmUser" value="Eliminar"
+                                         rendered="#{user.banBtnDelet}"
+                                         icon="ui-icon-trash" 
+                                         action="#{user.eliminarUsuario()}"/>
+                        <p:commandButton update=":frmUser" value="Limpiar"
+                                         icon="ui-icon-arrowrefresh-1-s"
+                                         action="#{user.limpiarPantalla()}"/>
+                    </h:panelGroup>    
+                    <p:separator/>
+                    <h:panelGrid id="enca" columns="4">
+                        <h:panelGroup>
+                            <h:outputLabel value="Nombre: "/>
+                            <p:inputText value="#{user.usuario.nombre}"/>
+                            <h:outputLabel value="*Usuario: "/>
+                            <p:inputText value="#{user.usuario.usuario}"/>
+                            <h:outputLabel value="*Clave: "/>
+                            <p:password value="#{user.password}"/>
+                            <h:outputText value="*Codigo de rol: "/>
+                            <p:selectOneMenu value="#{user.codrol}">
+                                <f:selectItem itemValue="-" itemLabel="Seleccione"/>
+                                <f:selectItems value="#{user.lstRoles}"
+                                               var="lstRo" itemLabel="#{lstRo.nombre}" itemValue="#{lstRo.codrol}"/>
+                            </p:selectOneMenu>   
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <p:dataTable value="#{user.lstUsers}" var="lst"
+                                 binding="#{user.tblRol}"
+                                 rows="10" paginator="true">
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{lst.codusr}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{lst.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Usuario">
+                            <h:outputText value="#{lst.usuario}"/>
+                        </p:column>
+                        <p:column headerText="Clave">
+                            <h:outputText value="#{lst.pass}"/>
+                        </p:column>
+                        <p:column headerText="Codigo Rol">
+                            <h:outputText value="#{lst.codrol.codrol}"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="width: 40px;">
+                            <p:commandButton update=":frmUser:mainV" 
+                                             action="#{user.seleccionaEntidad()}"
+                                             style="width: 25px; height: 25px;"
+                                             icon="ui-icon-pencil" title="Editar" >                          
+                                <f:setPropertyActionListener value="#{lst}" target="#{user.usuario}"/>
+                            </p:commandButton>                         
+                        </p:column>  
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="BUSCAR"></p:tab>
+            </p:tabView>
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog header="Alerta"
+                      draggable="false"
+                      binding="#{util.popUpDialMsg}"                      
+                      resizable="false"
+                      closable="false"
+                      modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->
+        </h:form>
+    </ui:define>
+
+</ui:composition>
