@@ -1,3 +1,4 @@
+//<editor-fold defaultstate="collapsed" desc="Variables"> 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,15 +27,17 @@ import org.primefaces.component.datatable.DataTable;
  *
  * @author orlando
  */
+//</editor-fold>
 @ManagedBean(name = "user")
 @ViewScoped
 public class UsuarioBean implements Serializable {
+
+    //<editor-fold defaultstate="collapsed" desc="Llamado a los EJB'S"> 
     @EJB
     private CRUDLocal cRUD;
-
-    //<editor-fold defaultstate="collapsed" desc="Llamado a los EJB'S">  
     @EJB
     private BusquedasLocal busquedas;
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Variables">  
     //Datatable de rol
@@ -63,6 +66,7 @@ public class UsuarioBean implements Serializable {
     private boolean banpk = false;
     //Utilidades varias
     private UtilidadesVarias util = Util.buscarBean("util");
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public Usuario getUsuario() {
@@ -163,6 +167,8 @@ public class UsuarioBean implements Serializable {
     public void setUtil(UtilidadesVarias util) {
         this.util = util;
     }
+    
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Metodos">  
     /**
@@ -253,11 +259,15 @@ public class UsuarioBean implements Serializable {
             util.alerta(msg, 3);
         }
     }
+    
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor"> 
     /**
      * Creates a new instance of UsuarioBean
      */
     public UsuarioBean() {
     }
 
+    //</editor-fold>
 }

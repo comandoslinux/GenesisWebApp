@@ -7,7 +7,7 @@ import org.genesis.entidades.Producto;
 import org.genesis.entidades.Salida;
 import org.genesis.entidades.SalidadetaPK;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-04T20:31:33")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-11T21:34:25")
 @StaticMetamodel(Salidadeta.class)
 public class Salidadeta_ { 
 

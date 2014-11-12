@@ -10,7 +10,7 @@ import org.genesis.entidades.Donante;
 import org.genesis.entidades.Estddonacion;
 import org.genesis.entidades.Usuario;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-04T20:31:33")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-11T21:34:25")
 @StaticMetamodel(Donacion.class)
 public class Donacion_ { 
 

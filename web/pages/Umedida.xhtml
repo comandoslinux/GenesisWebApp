@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">MANTENIMIENTO DE UNIDAD DE MEDIDA</h1>
+        <h:form id="frmUmedida"> 
+            <p:tabView id="mainTvUm">
+                <p:tab title="Nuevo">
+                    <h:panelGrid id="grdEncaUm" columns="2">
+                        <h:panelGroup>
+                            <p:separator/>
+                            <h:outputLabel value="*Codigo UM: "/>
+                            <p:inputText maxlength="20"
+                                         value=""/>
+                            <h:outputLabel value="*Nombre UM: "/>
+                            <p:inputText maxlength="50"
+                                         value=""/>
+                            <h:outputLabel value="Descripcion UM: "/>
+                            <p:inputText maxlength="150"
+                                         value=""/>
+                            <p:separator/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Buscar">
+                    
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

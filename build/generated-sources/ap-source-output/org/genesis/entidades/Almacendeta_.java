@@ -7,7 +7,7 @@ import org.genesis.entidades.Almacen;
 import org.genesis.entidades.AlmacendetaPK;
 import org.genesis.entidades.Producto;
 
-@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-04T20:31:33")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-11T21:34:25")
 @StaticMetamodel(Almacendeta.class)
 public class Almacendeta_ { 
 

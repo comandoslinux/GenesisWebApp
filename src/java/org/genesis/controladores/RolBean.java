@@ -1,3 +1,4 @@
+//<editor-fold defaultstate="collapsed" desc="Imports">  
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,15 +25,17 @@ import org.primefaces.component.datatable.DataTable;
  *
  * @author orlando
  */
+//</editor-fold>
 @ManagedBean(name = "rol")
 @ViewScoped
 public class RolBean implements Serializable {
-    @EJB
-    private CRUDLocal cRUD;
-
+    
     //<editor-fold defaultstate="collapsed" desc="Llamado a los EJB'S">  
     @EJB
+    private CRUDLocal cRUD;
+    @EJB
     private BusquedasLocal busquedas;
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Variables">  
     //Entidad rol
@@ -51,6 +54,7 @@ public class RolBean implements Serializable {
     private StringBuilder msg = new StringBuilder();
     //Utilidades varias
     private UtilidadesVarias util = Util.buscarBean("util");
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public Rol getRol() {
@@ -109,6 +113,8 @@ public class RolBean implements Serializable {
     public void setUtil(UtilidadesVarias util) {
         this.util = util;
     }
+    
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Metodos">   
     //Limpia los inputs
@@ -198,11 +204,14 @@ public class RolBean implements Serializable {
 
     }
 
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor">  
     /**
      * Creates a new instance of RolBean
      */
     public RolBean() {
     }
+    //</editor-fold>
 
 }
