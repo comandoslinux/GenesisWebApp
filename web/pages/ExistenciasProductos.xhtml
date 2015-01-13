@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">CONSULTA DE PRODUCTOS</h1>
+        <h:form id="frmExistProd">
+            <p:tabView id="mainVExist">
+                <p:tab title="Existencias">                        
+                    <p:commandButton update=":frmExistProd" value="Buscar" 
+                                     action="#{consultaProductos.buscarExistProd()}"/>
+                    <p:separator/>
+                    <h:panelGrid columns="2">                       
+                    <h:outputLabel value="Codigo: "/>
+                    <p:inputText  value="#{consultaProductos.codproducto}"/>
+                    </h:panelGrid>
+                    <p:dataTable value="#{consultaProductos.lstExistProd}"
+                                 var="lstExistProd">
+                        <p:column headerText="Cod producto">
+                            <h:outputText value="#{lstExistProd.codprdto}"/>
+                        </p:column>
+                        <p:column headerText="Nombre producto">
+                            <h:outputText value="#{lstExistProd.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Cantidad producto">
+                            <h:outputText value="#{lstExistProd.cantidadprdto}"/>
+                        </p:column>
+                        <p:column headerText="UMedida producto">
+                            <h:outputText value="#{lstExistProd.umedida}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog  id="dlgExist"
+                       header="Alerta"
+                       draggable="false"
+                       binding="#{util.popUpDialMsg}"
+                       resizable="false"
+                       closable="false"
+                       modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage id="imgPopupExist" binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid id="imgBtnCerrExist" style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->
+        </h:form>
+    </ui:define>
+
+</ui:composition>

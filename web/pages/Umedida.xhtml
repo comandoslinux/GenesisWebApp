@@ -3,6 +3,7 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../template/MainTemp.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
@@ -10,27 +11,85 @@
         <h:form id="frmUmedida"> 
             <p:tabView id="mainTvUm">
                 <p:tab title="Nuevo">
+                    <h:panelGroup>                            
+                        <p:commandButton update=":frmUmedida" value="Guardar" 
+                                         icon="ui-icon-disk"
+                                         action="#{umedidaBean.guardarUm()}"/>
+                        <p:commandButton update=":frmUmedida" value="Eliminar"                                         
+                                         icon="ui-icon-trash" 
+                                         rendered="#{umedidaBean.banBtnEli}"
+                                         action="#{umedidaBean.eliminarUm()}"/>
+                        <p:commandButton update=":frmUmedida" value="Limpiar"
+                                         icon="ui-icon-arrowrefresh-1-s"
+                                         action="#{umedidaBean.limpiarPantalla()}"/>
+                    </h:panelGroup>   
                     <h:panelGrid id="grdEncaUm" columns="2">
                         <h:panelGroup>
                             <p:separator/>
                             <h:outputLabel value="*Codigo UM: "/>
                             <p:inputText maxlength="20"
-                                         value=""/>
+                                         value="#{umedidaBean.umedida.codum}"
+                                         readonly="#{umedidaBean.banpk}"/>
                             <h:outputLabel value="*Nombre UM: "/>
                             <p:inputText maxlength="50"
-                                         value=""/>
+                                         value="#{umedidaBean.umedida.nombre}"/>
                             <h:outputLabel value="Descripcion UM: "/>
                             <p:inputText maxlength="150"
-                                         value=""/>
+                                         value="#{umedidaBean.umedida.descripcion}"/>
                             <p:separator/>
+                            <p:dataTable id="tblUm" value="#{umedidaBean.lstUmedida}" var="lstum"
+                                         paginator="true"
+                                         binding="#{umedidaBean.tblUm}"
+                                         rows="10">
+                                <p:column headerText="Codigo um">
+                                    <h:outputText value="#{lstum.codum}"/>
+                                </p:column>
+                                <p:column headerText="Nombre um">
+                                    <h:outputText value="#{lstum.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Descripcion um">
+                                    <h:outputText value="#{lstum.descripcion}"/>
+                                </p:column>
+                                <p:column headerText="Editar" style="width: 70px;">
+                                    <p:commandButton id="btnEdi" update=":frmUmedida:mainTvUm"
+                                                     action="#{umedidaBean.activarPK()}"
+                                                     style="width: 25px; height: 25px;"
+                                                     icon="ui-icon-pencil" title="Editar" >                          
+                                        <f:setPropertyActionListener value="#{lstum}" target="#{umedidaBean.umedida}"/>
+                                    </p:commandButton>   
+                                    <p:commandButton id="btnEli" update=":frmUmedida"
+                                                     title="Eliminar"
+                                                     icon="ui-icon-circle-minus"
+                                                     style="width: 25px; height: 25px;"
+                                                     action="#{umedidaBean.btnEliminarLinea()}"/>
+                                </p:column> 
+                            </p:dataTable>
                         </h:panelGroup>
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Buscar">
-                    
+
                 </p:tab>
-            </p:tabView>
-        </h:form>
+            </p:tabView>     
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog  id="dlgUm"
+                       header="Alerta"
+                       draggable="false"
+                       binding="#{util.popUpDialMsg}"
+                       resizable="false"
+                       closable="false"
+                       modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage id="imgPopup" binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid id="imgBtnCerrUM" style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>            
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->
+        </h:form>            
     </ui:define>
 
 </ui:composition>

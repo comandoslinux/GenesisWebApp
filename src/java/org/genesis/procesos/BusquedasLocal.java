@@ -8,7 +8,9 @@ package org.genesis.procesos;
 import java.util.List;
 import javax.ejb.Local;
 import org.genesis.entidades.Rol;
+import org.genesis.entidades.Umedida;
 import org.genesis.entidades.Usuario;
+import org.genesis.entidades.VExistenciasProd;
 
 /**
  *
@@ -32,5 +34,23 @@ public interface BusquedasLocal {
      * @throws Exception Error generico
      */
     List<Usuario> listaUsers() throws Exception;
+    
+    /**
+     * Retorna una lista de um
+     *
+     * @return List - Lista de UM
+     * @throws Exception Error generico
+     */
+    List<Umedida> listaUM() throws Exception;
+
+    /**
+     * Hace una busqueda de productos que se encuentran almacenados.
+     * 
+     * @param codproducto producto a buscar.
+     * @return lista de productos.
+     * @throws Exception Error generico.
+     */
+    List<VExistenciasProd> consultaProductos(final String codproducto)
+            throws Exception;
 
 }

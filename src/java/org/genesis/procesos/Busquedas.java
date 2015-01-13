@@ -11,7 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.genesis.entidades.Rol;
+import org.genesis.entidades.Umedida;
 import org.genesis.entidades.Usuario;
+import org.genesis.entidades.VExistenciasProd;
 
 /**
  *
@@ -53,4 +55,36 @@ public class Busquedas implements BusquedasLocal {
         return lstUsers;
     }
 
+    /**
+     * Retorna una lista de Unidad de medida
+     *
+     * @return List - Lista de UM
+     * @throws Exception Error generico
+     */
+    @Override
+    public List<Umedida> listaUM() throws Exception {
+        List<Umedida> lstUsers = null;
+        Query q = em.createNamedQuery("Umedida.findAll");
+        lstUsers = q.getResultList();
+        return lstUsers;
+    }
+
+    /**
+     * Hace una busqueda de productos que se encuentran almacenados.
+     *
+     * @param codproducto producto a buscar.
+     * @return lista de productos.
+     * @throws Exception Error generico.
+     */
+    @Override
+    public List<VExistenciasProd> consultaProductos(final String codproducto)
+            throws Exception {
+        List<VExistenciasProd> lstExistProd = null;
+        Query q = em.createNamedQuery("VExistenciasProd.findByCodprdto");
+        if (!codproducto.isEmpty()) {
+            q.setParameter("codprdto", "%"+ codproducto +"%");
+        }
+        lstExistProd = q.getResultList();
+        return lstExistProd;
+    }
 }

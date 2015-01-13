@@ -113,7 +113,7 @@ public class RolBean implements Serializable {
     public void setUtil(UtilidadesVarias util) {
         this.util = util;
     }
-    
+
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Metodos">   
@@ -123,7 +123,7 @@ public class RolBean implements Serializable {
         banpk = false;
         banBtnEli = false;
     }
-
+    
     //Valida que los datos requeridos se ingresen
     public boolean validaInputs() {
         msg = new StringBuilder();

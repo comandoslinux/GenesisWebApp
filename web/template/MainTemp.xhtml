@@ -19,62 +19,65 @@
     </h:head>
 
     <h:body>
-            <div id="top" class="top">
-                <ui:insert name="top"></ui:insert>
-                <p:menubar styleClass="ui-menubar">
-                    <p:submenu label="Home" icon="ui-icon-home">
-                        <p:menuitem value="Home" url="../template/MainTemp.xhtml"/>
-                    </p:submenu>
-                    <p:submenu label="Administracion" icon="ui-icon-circle-arrow-s">
-                        <p:menuitem value="Rol" url="../pages/Rol.xhtml"/>
-                        <p:menuitem value="Usuario" url="../pages/Usuario.xhtml"/>
-                    </p:submenu>
-                    <p:submenu label="Mantenimientos" icon="ui-icon-circle-arrow-s">                        
-                        <p:menuitem value="Unidad Medida" url="../pages/Umedida.xhtml"/>
-                    </p:submenu>   
-                    <f:facet name="options">      
-                        <p:link value="SALIR"
+        <div id="top" class="top">
+            <ui:insert name="top"></ui:insert>
+            <p:menubar styleClass="ui-menubar">
+                <p:submenu label="Home" icon="ui-icon-home">
+                    <p:menuitem value="Home" url="../template/MainTemp.xhtml"/>
+                </p:submenu>
+                <p:submenu label="Administracion" icon="ui-icon-circle-arrow-s">
+                    <p:menuitem value="Rol" url="../pages/Rol.xhtml"/>
+                    <p:menuitem value="Usuario" url="../pages/Usuario.xhtml"/>
+                </p:submenu>
+                <p:submenu label="Mantenimientos" icon="ui-icon-circle-arrow-s">                        
+                    <p:menuitem value="Unidad Medida" url="../pages/Umedida.xhtml"/>
+                </p:submenu>   
+                <p:submenu label="Consultas" icon="ui-icon-circle-arrow-s">                        
+                    <p:menuitem value="Existencias" url="../pages/ExistenciasProductos.xhtml"/>
+                </p:submenu>  
+                <f:facet name="options">      
+                    <p:link value="SALIR"
                             href="../login/Login.xhtml"/>
-                    </f:facet>
-                </p:menubar>
+                </f:facet>
+            </p:menubar>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">ONG'S ANOTHER MENU</ui:insert>
             </div>
-            <div>
-                <div id="left">
-                    <ui:insert name="left">ONG'S ANOTHER MENU</ui:insert>
-                </div>
-                <div id="content" class="left_content">
-                    <ui:insert name="content">
-                        <p:panel header="HOBBIE APPLICATION">
-                            <p>
-                                This web app has been made for
-                                hobbie and for learn a little of java
-                                programming language only. It's an assumed project.
-                            </p>
-                            <p>
-                                Used technology:
-                            </p>
-                            <p>
-                                (._.) Netbeans IDE 7.4
-                            </p>
-                            <p>
-                                (._.) JAVA JDK: 1.7_0_51
-                            </p>
-                            <p>
-                                (._.) GLASSFICH 4 OpenSource
-                            </p>
-                            <p>
-                                (._.) MySql Community: Server version: 5.6.21
-                            </p>
-                            <p>
-                                (._.) Framework JAVA SERVER FACES: 2.2
-                            </p>
-                            <p>
-                                (._.) Librarie Primefaces: 5.0
-                            </p>
-                        </p:panel>
-                    </ui:insert>
-                </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">
+                    <p:panel header="HOBBIE APPLICATION">
+                        <p>
+                            This web app has been made for
+                            hobbie and for learn a little of java
+                            programming language only. It's an assumed project.
+                        </p>
+                        <p>
+                            Used technology:
+                        </p>
+                        <p>
+                            (._.) Netbeans IDE 7.4
+                        </p>
+                        <p>
+                            (._.) JAVA JDK: 1.7_0_51
+                        </p>
+                        <p>
+                            (._.) GLASSFICH 4 OpenSource
+                        </p>
+                        <p>
+                            (._.) MySql Community: Server version: 5.6.21
+                        </p>
+                        <p>
+                            (._.) Framework JAVA SERVER FACES: 2.2
+                        </p>
+                        <p>
+                            (._.) Librarie Primefaces: 5.0
+                        </p>
+                    </p:panel>
+                </ui:insert>
             </div>
+        </div>
     </h:body>
 
 </html>
