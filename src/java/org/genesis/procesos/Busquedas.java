@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.genesis.entidades.Estddonacion;
 import org.genesis.entidades.Rol;
 import org.genesis.entidades.Umedida;
 import org.genesis.entidades.Usuario;
@@ -86,5 +87,19 @@ public class Busquedas implements BusquedasLocal {
         }
         lstExistProd = q.getResultList();
         return lstExistProd;
+    }
+    
+    /**
+     * Retorna todos los registros de la entidad Estddonacion.
+     *
+     * @return Lista de objetos de entidad Estddonacion.
+     * @throws Exception Error generico.
+     */
+    @Override
+    public List<Estddonacion> listaEstDona() throws Exception {
+        List<Estddonacion> lstEstDona = null;
+        Query q = em.createNamedQuery("Estddonacion.findAll");
+        lstEstDona = q.getResultList();
+        return lstEstDona;
     }
 }

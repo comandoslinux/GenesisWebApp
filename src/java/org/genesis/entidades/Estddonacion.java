@@ -37,14 +37,14 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Estddonacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 20)
     @Column(name = "codstddncn")
     private String codstddncn;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 50)
     @Column(name = "nombre")
     private String nombre;
     @Size(max = 150)

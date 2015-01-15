@@ -7,6 +7,7 @@ package org.genesis.procesos;
 
 import java.util.List;
 import javax.ejb.Local;
+import org.genesis.entidades.Estddonacion;
 import org.genesis.entidades.Rol;
 import org.genesis.entidades.Umedida;
 import org.genesis.entidades.Usuario;
@@ -52,5 +53,12 @@ public interface BusquedasLocal {
      */
     List<VExistenciasProd> consultaProductos(final String codproducto)
             throws Exception;
-
+    
+    /**
+     * Retorna todos los registros de la entidad Estddonacion.
+     * 
+     * @return Lista de objetos de entidad Estddonacion.
+     * @throws Exception Error generico.
+     */
+    List<Estddonacion> listaEstDona() throws Exception;
 }
