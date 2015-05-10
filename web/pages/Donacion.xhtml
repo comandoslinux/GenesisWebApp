@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                    
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">DONACIONES</h1>
+        <h:form id="frmDonacion">
+           <!--<p:growl showDetail="true"/>--> <!--mostrar alertas de las entidades-->
+           <p:tabView id="mainVdona">
+                <p:tab title="NUEVO">
+                    <p:panel id="btns">
+                        <p:commandButton update=":frmDonacion" value="Nuevo" 
+                                         action="#{donacionBean.agregarCorrDonacion()}"/>
+                        <p:commandButton update=":frmDonacion" value="Guardar"
+                                         disabled="#{donacionBean.banBotonGuardar}"
+                                         action="#{donacionBean.guardarDonacion()}"/>
+                        <p:commandButton update=":frmDonacion" value="Limpiar" 
+                                         action="#{donacionBean.limpiarPantalla()}"/>
+                    </p:panel>
+                    <p:panel id="enca" header="Encabezado">
+                        <h:panelGrid columns="4">
+                            <h:outputLabel value="Correlativo:"/>
+                            <p:inputText id="corr"
+                                         value="#{donacionBean.encaDonacion.codcorredncn}"
+                                         readonly="true"/>                    
+                            <h:outputLabel value="Concepto:"/>
+                            <p:inputText value="#{donacionBean.encaDonacion.concepto}"/>
+                            <h:outputLabel value="Fecha Ingreso:"/>
+                            <p:calendar value="#{donacionBean.encaDonacion.fingreso}"
+                                        pattern="dd/MM/yyyy"                                          
+                                        readonlyInput="true"
+                                        navigator="true"
+                                        mode="popup"
+                                        showOn="button"/>
+                            <h:outputLabel value="Fecha Recepcion:"/>
+                            <p:calendar value="#{donacionBean.encaDonacion.frecepcion}"
+                                        pattern="dd/MM/yyyy" readonlyInput="true"
+                                        navigator="true" 
+                                        mode="popup"
+                                        showOn="button"/>
+                            <h:outputText value="Codigo estado donacion:"/>
+                            <p:selectOneMenu value="#{donacionBean.codstddonacion}">
+                                <f:selectItems value="#{donacionBean.lstEstdDonacion}"
+                                               var="lstEstdon" itemLabel="#{lstEstdon.nombre}"
+                                               itemValue="#{lstEstdon.codstddncn}"/>
+                            </p:selectOneMenu> 
+                            <h:outputText value="Codigo Usuario:"/>
+                            <p:selectOneMenu value="#{donacionBean.coduser}">
+                                <f:selectItems value="#{donacionBean.lstUsers}"
+                                               var="lstUsers" itemLabel="#{lstUsers.nombre}"
+                                               itemValue="#{lstUsers.codusr}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Codigo donante:"/>
+                            <p:selectOneMenu value="#{donacionBean.coddonante}">
+                                <f:selectItems value="#{donacionBean.lstDonante}"
+                                               var="lstDonant" itemLabel="#{lstDonant.nombre}"
+                                               itemValue="#{lstDonant.coddnte}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>    
+                    <p:panel id="deta" header="Detalle">
+                        <h:panelGrid>
+                            <p:commandButton value="Agregar" disabled="#{donacionBean.banActDesacDeta}"
+                                             update=":frmDonacion"
+                                             oncomplete="PF('Deta').show()"/>
+                        </h:panelGrid>
+                        <p:dataTable id="tbl" binding="#{donacionBean.tblDonadeta}" 
+                                     value="#{donacionBean.lstDonadeta}" var="lstDeta">
+                            <p:column headerText="Correlativo deta">
+                                <h:outputText value="#{lstDeta.donaciondetaPK.codcorrdndeta}"/>
+                            </p:column>
+                            <p:column headerText="Codigo producto">
+                                <h:outputText value="#{lstDeta.donaciondetaPK.codprdto}"/>
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                <h:outputText value="#{lstDeta.cantidad}"/>
+                            </p:column>
+                            <p:column headerText="Propiedad 1">
+                                <h:outputText value="#{lstDeta.vprpdad1}"/>
+                            </p:column>
+                            <p:column headerText="Propiedad 2">
+                                <h:outputText value="#{lstDeta.vprpdad2}"/>
+                            </p:column>
+                            <p:column headerText="Correlativo donacion">
+                                <h:outputText value="#{lstDeta.codcorredncn.codcorredncn}"/>
+                            </p:column>
+                            <p:column headerText="Codigo propiedad">
+                                <h:outputText value="#{lstDeta.codprpdad.codprpdad}"/>
+                            </p:column>
+                            <p:column headerText="Codigo estado producto">
+                                <h:outputText value="#{lstDeta.codstdprdto.codstdprdto}"/>
+                            </p:column>
+                            <p:column headerText="Codigo lote">
+                                <h:outputText value="#{lstDeta.codlote.codlote}"/>
+                            </p:column>
+                            <p:column headerText="Editar" style="width: 70px;">
+                                <p:commandButton id="btnDelDta" update=":frmDonacion:mainVdona"
+                                                 style="width: 25px; height: 25px;"
+                                                 icon="ui-icon-circle-minus" title="Eliminar"
+                                                 action="#{donacionBean.btnEliminarLinea()}">                          
+                                    <f:setPropertyActionListener value="#{lstDeta}" 
+                                                                 target="#{donacionBean.donadeta}"/>
+                                </p:commandButton>   
+                            </p:column> 
+                        </p:dataTable>
+                    </p:panel>   
+                </p:tab>
+                <p:tab title="BUSCAR">
+                    <p:outputLabel value="No. Donacion:"/>
+                    <p:inputText value="#{donacionBean.numeroDona}"/>
+                    <p:commandButton value="Buscar" update=":frmDonacion"
+                                     action="#{donacionBean.buscarDonacion()}" />
+                    <p:commandButton value="Limpiar" update=":frmDonacion" 
+                                     action="#{donacionBean.limpiarBusqueda()}" />
+                    <p:dataTable value="#{donacionBean.lstDonaciones}" var="lstDo">
+                        <f:facet name="header">
+                            DONACION
+                        </f:facet>
+                        <p:column headerText="Correlativo">
+                            <h:outputText value="#{lstDo.codcorredncn}"/>
+                        </p:column>
+                        <p:column headerText="Concepto">
+                            <h:outputText value="#{lstDo.concepto}"/>
+                        </p:column>
+                        <p:column headerText="Fecha ingreso">     
+                            <h:outputText value="#{lstDo.fingreso}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Fecha recepcion">                            
+                            <h:outputText value="#{lstDo.frecepcion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Cod usuario">
+                            <h:outputText value="#{lstDo.codusr.codusr}"/>
+                        </p:column>
+                        <p:column headerText="Cod donante">
+                            <h:outputText value="#{lstDo.coddnte.coddnte}"/>
+                        </p:column>
+                        <p:column headerText="Cod estado donacion">
+                            <h:outputText value="#{lstDo.codstddncn.codstddncn}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <h:outputLabel value="Detalle"/>
+                    <p:dataTable value="#{donacionBean.lstDonacionesdeta}"
+                                 var="lstDodeta">
+                        <f:facet name="header">
+                            DONACION DETALLE
+                        </f:facet>
+                        <p:column headerText="Corr deta">
+                            <h:outputText value="#{lstDodeta.donaciondetaPK.codcorrdndeta}"/>
+                        </p:column>
+                        <p:column headerText="Cod producto">
+                            <h:outputText value="#{lstDodeta.donaciondetaPK.codprdto}"/>
+                        </p:column>
+                        <p:column headerText="Cantidad producto">
+                            <h:outputText value="#{lstDodeta.cantidad}"/>
+                        </p:column>
+                        <p:column headerText="Propiedad 1">
+                            <h:outputText value="#{lstDodeta.vprpdad1}"/>
+                        </p:column>
+                        <p:column headerText="Propiedad 2">
+                            <h:outputText value="#{lstDodeta.vprpdad2}"/>
+                        </p:column>
+                        <p:column headerText="Corr donacion">
+                            <h:outputText value="#{lstDodeta.codcorredncn.codcorredncn}"/>
+                        </p:column>
+                        <p:column headerText="Cod propiedad ">
+                            <h:outputText value="#{lstDodeta.codprpdad.codprpdad}"/>
+                        </p:column>
+                        <p:column headerText="Estado producto">
+                            <h:outputText value="#{lstDodeta.codstdprdto.codstdprdto}"/>
+                        </p:column>
+                        <p:column headerText="Codigo de lote">
+                            <h:outputText value="#{lstDodeta.codlote.codlote}"/>
+                        </p:column>                        
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>            
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog  id="dlgDonac"
+                       header="Alerta"
+                       draggable="false"
+                       binding="#{util.popUpDialMsg}"
+                       resizable="false"
+                       closable="false"
+                       modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage id="imgPopupDonac" binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid id="imgBtnCerrDonac" style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->            
+            
+            
+        </h:form>        
+        <h:form id="popdeta">          
+                 <!-- Box de detalle -->
+            <p:dialog id="dglDet" header="Agregar Detalle" widgetVar="Deta" 
+                      draggable="true"
+                      modal="true" resizable="false" style="width: auto">
+                <p:outputPanel id="detalle" style="width: 450px;">
+                    <h:panelGrid columns="2" style="width: 100%; border: none;">
+                        <h:outputLabel  value="Codigo producto:"/>
+                        <p:selectOneMenu value="#{donacionBean.codproducto}">
+                            <f:selectItems value="#{donacionBean.lstProducto}"
+                                           var="lstProduct" itemLabel="#{lstProduct.nombre}"
+                                           itemValue="#{lstProduct.codprdto}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel  value="Cantidad:"/>
+                        <p:inputText value="#{donacionBean.cantidad}" required="true"/>
+                        <h:outputLabel  value="Propiedad 1:"/>
+                        <p:inputText value="#{donacionBean.propiedad1}"/>
+                        <h:outputLabel  value="Propiedad 2:"/>
+                        <p:inputText value="#{donacionBean.propiedad2}"/>
+                        <h:outputLabel  value="Codigo propiedad:"/>
+                        <p:selectOneMenu value="#{donacionBean.codpropiedad}">
+                            <f:selectItems value="#{donacionBean.lstPropiedad}"
+                                           var="lstPropie" itemLabel="#{lstPropie.nombre}"
+                                           itemValue="#{lstPropie.codprpdad}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel  value="Codigo estado producto:"/>
+                        <p:selectOneMenu value="#{donacionBean.codStdoprodu}">
+                            <f:selectItems value="#{donacionBean.lstEstadProdu}"
+                                           var="lstEstProd" itemLabel="#{lstEstProd.nombre}"
+                                           itemValue="#{lstEstProd.codstdprdto}"/>
+                        </p:selectOneMenu>
+                        <h:outputLabel  value="Codigo lote:"/>
+                        <p:selectOneMenu value="#{donacionBean.codLote}">
+                            <f:selectItems value="#{donacionBean.lstLote}"
+                                           var="lstLote" itemLabel="#{lstLote.nombre}"
+                                           itemValue="#{lstLote.codlote}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton update=":frmDonacion"  value="Add"
+                                         oncomplete="PF('Deta').hide()"
+                                         action="#{donacionBean.agregarDetalle()}"/>
+                    </h:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+            <!-- Box de detalle fin-->       
+        </h:form>
+    </ui:define>
+
+</ui:composition>

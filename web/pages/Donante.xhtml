@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">MANTENIMIENTO DE DONANTE</h1>
+        <h:form id="frmDonante">
+            <p:tabView id="mainTvDonte">
+                <p:tab title="Nuevo">
+                    <h:panelGroup>                            
+                        <p:commandButton update=":frmDonante" value="Guardar" 
+                                         action="#{donante.guardarDonante()}"
+                                         icon="ui-icon-disk"/>
+                        <p:commandButton update=":frmDonante" value="Eliminar"                                         
+                                         icon="ui-icon-trash" 
+                                         rendered="#{donante.banBtnEli}"
+                                         action="#{donante.eliminarDonante()}"/>
+                        <p:commandButton update=":frmDonante" value="Limpiar"
+                                         icon="ui-icon-arrowrefresh-1-s"
+                                         action="#{donante.limpiarPantalla()}"/>
+                    </h:panelGroup>  
+                    <p:separator/>
+                    <h:panelGrid id="encabDonte" columns="6">
+                        <h:panelGrid columns="4">
+                            <h:outputLabel value="*Nombre:"/>
+                            <p:inputText value="#{donante.donante.nombre}"/>
+                            <h:outputLabel value="*Fecha ingreso: "/>
+                            <p:calendar value="#{donante.donante.fingreso}"
+                                        pattern="dd/MM/yyyy" readonlyInput="true"
+                                        navigator="true"
+                                        mode="popup"
+                                        showOn="button"/>
+                            <h:outputLabel value="DUI:"/>
+                            <p:inputText value="#{donante.donante.dui}" maxlength="10"/>
+                            <h:outputLabel value="NIT:"/>
+                            <p:inputText value="#{donante.donante.nit}" maxlength="17"/>
+                            <h:outputLabel value="Telefono:"/>
+                            <p:inputText value="#{donante.donante.telefono}"/>
+                            <h:outputLabel value="Direccion:"/>
+                            <p:inputText value="#{donante.donante.direccion}" />
+                            <h:outputText value="Tipo donante"/>
+                            <p:selectOneMenu value="#{donante.codtpDonante}">
+                                <f:selectItem itemValue="-" itemLabel="Seleccione"/>
+                                <f:selectItems value="#{donante.lstTpdonantes}"
+                                               var="lstTPdon"
+                                               itemLabel="#{lstTPdon.nombre}" 
+                                               itemValue="#{lstTPdon.codtpdonante}"/>
+                            </p:selectOneMenu>   
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <p:dataTable id="tblDonante"
+                                 value="#{donante.lstDonante}"
+                                 var="lstDonante"
+                                 rows="10" paginator="true"
+                                 binding="#{donante.tblDonantes}">
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{lstDonante.coddnte}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{lstDonante.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Fecha ingreso">
+                            <h:outputText value="#{lstDonante.fingreso}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="DUI">
+                            <h:outputText value="#{lstDonante.dui}"/>
+                        </p:column>
+                        <p:column headerText="NIT">
+                            <h:outputText value="#{lstDonante.nit}"/>
+                        </p:column>
+                        <p:column headerText="Telefono">
+                            <h:outputText value="#{lstDonante.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Direccion">
+                            <h:outputText value="#{lstDonante.direccion}"/>
+                        </p:column>
+                        <p:column headerText="Tipo Donante">
+                            <h:outputText value="#{lstDonante.codtpdonante.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="width: 70px;">
+                            <p:commandButton id="btnEditEstDona" update=":frmDonante:mainTvDonte"
+                                             action="#{donante.activarPK()}"
+                                             style="width: 25px; height: 25px;"
+                                             icon="ui-icon-pencil" title="Editar" >                          
+                                <f:setPropertyActionListener value="#{lstDonante}"
+                                                             target="#{donante.donante}"/>
+                            </p:commandButton>   
+                            <p:commandButton id="btnEliDonante"
+                                             update=":frmDonante"
+                                             title="Eliminar"
+                                             icon="ui-icon-circle-minus"
+                                             style="width: 25px; height: 25px;"
+                                             action="#{donante.btnEliminarLinea()}"/>
+                        </p:column> 
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog  id="dlgDonante"
+                       header="Alerta"
+                       draggable="false"
+                       binding="#{util.popUpDialMsg}"
+                       resizable="false"
+                       closable="false"
+                       modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage id="imgPopupDonant" binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid id="imgBtnCerrDonante" style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->
+        </h:form>
+    </ui:define>
+
+</ui:composition>

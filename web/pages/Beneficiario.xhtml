@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template/MainTemp.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1 style="text-align: right">MANTENIMIENTO DE BENEFICIARIO</h1>
+        <h:form id="frmBenefi">
+            <p:tabView id="mainTvBene">
+                <p:tab title="Nuevo">
+                    <h:panelGroup>                            
+                        <p:commandButton update=":frmBenefi" value="Guardar" 
+                                         action="#{benefi.guardarBeneficiario()}"
+                                         icon="ui-icon-disk"/>
+                        <p:commandButton update=":frmBenefi" value="Eliminar"                                         
+                                         icon="ui-icon-trash" 
+                                         rendered="#{benefi.banBtnEli}"
+                                         action="#{benefi.eliminarBeneficiario()}"/>
+                        <p:commandButton update=":frmBenefi" value="Limpiar"
+                                         icon="ui-icon-arrowrefresh-1-s"
+                                         action="#{benefi.limpiarPantalla()}"/>
+                    </h:panelGroup>  
+                    <p:separator/>
+                    <h:panelGrid id="encabBenefi" columns="6">
+                        <h:panelGrid columns="4">
+                            <h:outputLabel value="*Nombre: "/>
+                            <p:inputText value="#{benefi.beneficiario.nombrebene}"/>
+                            <h:outputLabel value="Telefono: "/>
+                            <p:inputText value="#{benefi.beneficiario.telefono}"/>
+                            <h:outputLabel value="Email: "/>
+                            <p:inputText value="#{benefi.beneficiario.email}"/>
+                            <h:outputLabel value="Direccion:"/>
+                            <p:inputText value="#{benefi.beneficiario.direccion}" />
+                            <h:outputLabel value="DUI:"/>
+                            <p:inputText value="#{benefi.beneficiario.dui}" maxlength="10"/>
+                            <h:outputLabel value="NIT:"/>
+                            <p:inputText value="#{benefi.beneficiario.nit}" maxlength="17"/>
+                            <h:outputText value="Contacto Beneficiario: "/>
+                            <p:inputText value="#{benefi.beneficiario.contactobene}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <p:dataTable id="tblDonante"
+                                 value="#{benefi.lstBenefi}"
+                                 var="lstBenefi"
+                                 rows="10" paginator="true"
+                                 binding="#{benefi.tblBenefi}">
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{lstBenefi.codbenef}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{lstBenefi.nombrebene}"/>
+                        </p:column>
+                        <p:column headerText="Telefono">
+                            <h:outputText value="#{lstBenefi.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{lstBenefi.email}"/>
+                        </p:column>
+                        <p:column headerText="Direccion">
+                            <h:outputText value="#{lstBenefi.direccion}"/>
+                        </p:column>
+                        <p:column headerText="DUI">
+                            <h:outputText value="#{lstBenefi.dui}"/>
+                        </p:column>
+                        <p:column headerText="NIT">
+                            <h:outputText value="#{lstBenefi.nit}"/>
+                        </p:column>
+                        <p:column headerText="Contacto Beneficiario">
+                            <h:outputText value="#{lstBenefi.contactobene}"/>
+                        </p:column>
+                        <p:column headerText="Editar" style="width: 70px;">
+                            <p:commandButton id="btnEditBenefi" update=":frmBenefi:mainTvBene"
+                                             action="#{benefi.activarPK()}"
+                                             style="width: 25px; height: 25px;"
+                                             icon="ui-icon-pencil" title="Editar" >                          
+                                <f:setPropertyActionListener value="#{lstBenefi}"
+                                                             target="#{benefi.beneficiario}"/>
+                            </p:commandButton>   
+                            <p:commandButton id="btnEliBenefi"
+                                             update=":frmBenefi"
+                                             title="Eliminar"
+                                             icon="ui-icon-circle-minus"
+                                             style="width: 25px; height: 25px;"
+                                             action="#{benefi.btnEliminarLinea()}"/>
+                        </p:column> 
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
+            <!--Dialogo para mostrar mensajes inicio-->
+            <p:dialog  id="dlgBenefi"
+                       header="Alerta"
+                       draggable="false"
+                       binding="#{util.popUpDialMsg}"
+                       resizable="false"
+                       closable="false"
+                       modal="true">
+                <h:panelGrid columns="2"> 
+                    <h:graphicImage id="imgPopupBenef" binding="#{util.imgPopUp}"
+                                    style="text-align: center;"/>
+                    <h:outputText value="#{util.msg}"/>
+                </h:panelGrid>
+                <h:panelGrid id="imgBtnCerrBenef" style=" width: 100%; text-align: center;">
+                    <h:commandButton value="OK"  style="text-align: center;"    
+                                     action="#{util.btnCerrarDialog()}"/>                    
+                </h:panelGrid>
+            </p:dialog><!--Dialogo para mostrar mensajes fin-->
+        </h:form>
+    </ui:define>
+
+</ui:composition>
