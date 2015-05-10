@@ -12,11 +12,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,14 +43,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Beneficiario.findByContactobene", query = "SELECT b FROM Beneficiario b WHERE b.contactobene = :contactobene")})
 public class Beneficiario implements Serializable {
     private static final long serialVersionUID = 1L;
+    //Generador de secuencias o autoincremental
+    @TableGenerator(name = "benefi_gen",
+            table = "ID_GEN",
+            pkColumnName = "GEN_NAME",
+            valueColumnName = "GEN_VAL")
     @Id
-    @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(generator = "benefi_gen")
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "codbenef")
     private Integer codbenef;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
+//    @NotNull
+//    @Size(min = 1, max = 150)
     @Column(name = "nombrebene")
     private String nombrebene;
     @Size(max = 50)

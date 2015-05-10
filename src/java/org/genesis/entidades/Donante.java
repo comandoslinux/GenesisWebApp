@@ -13,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -45,18 +47,23 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Donante.findByDireccion", query = "SELECT d FROM Donante d WHERE d.direccion = :direccion")})
 public class Donante implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
+    //Generador de secuencias o autoincremental
+    @TableGenerator(name="donante_gen",
+    table  = "ID_GEN",
+    pkColumnName = "GEN_NAME",
+    valueColumnName = "GEN_VAL")
+    @Id @GeneratedValue(generator="donante_gen")
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "coddnte")
     private Integer coddnte;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 50)
     @Column(name = "nombre")
     private String nombre;
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "fingreso")
     @Temporal(TemporalType.DATE)
     private Date fingreso;

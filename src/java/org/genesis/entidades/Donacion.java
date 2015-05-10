@@ -7,6 +7,7 @@
 package org.genesis.entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Donacion.findAll", query = "SELECT d FROM Donacion d"),
+    @NamedQuery(name = "Donacion.findLastID", query = "SELECT MAX(d.codcorredncn) FROM Donacion d"),
     @NamedQuery(name = "Donacion.findByCodcorredncn", query = "SELECT d FROM Donacion d WHERE d.codcorredncn = :codcorredncn"),
     @NamedQuery(name = "Donacion.findByConcepto", query = "SELECT d FROM Donacion d WHERE d.concepto = :concepto"),
     @NamedQuery(name = "Donacion.findByFingreso", query = "SELECT d FROM Donacion d WHERE d.fingreso = :fingreso"),
@@ -43,17 +45,17 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Donacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "codcorredncn")
-    private Integer codcorredncn;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
+    private BigInteger codcorredncn;
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 150)
     @Column(name = "concepto")
     private String concepto;
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "fingreso")
     @Temporal(TemporalType.DATE)
     private Date fingreso;
@@ -75,21 +77,21 @@ public class Donacion implements Serializable {
     public Donacion() {
     }
 
-    public Donacion(Integer codcorredncn) {
+    public Donacion(BigInteger codcorredncn) {
         this.codcorredncn = codcorredncn;
     }
 
-    public Donacion(Integer codcorredncn, String concepto, Date fingreso) {
+    public Donacion(BigInteger codcorredncn, String concepto, Date fingreso) {
         this.codcorredncn = codcorredncn;
         this.concepto = concepto;
         this.fingreso = fingreso;
     }
 
-    public Integer getCodcorredncn() {
+    public BigInteger getCodcorredncn() {
         return codcorredncn;
     }
 
-    public void setCodcorredncn(Integer codcorredncn) {
+    public void setCodcorredncn(BigInteger codcorredncn) {
         this.codcorredncn = codcorredncn;
     }
 

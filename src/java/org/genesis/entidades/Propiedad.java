@@ -37,14 +37,14 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Propiedad implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 100)
     @Column(name = "codprpdad")
     private String codprpdad;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 150)
     @Column(name = "nombre")
     private String nombre;
     @Size(max = 150)

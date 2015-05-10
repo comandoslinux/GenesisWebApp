@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.21, for Linux (x86_64)
+CREATE DATABASE  IF NOT EXISTS `genesis` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `genesis`;
+-- MySQL dump 10.13  Distrib 5.6.19, for linux-glibc2.5 (x86_64)
 --
--- Host: localhost    Database: genesis
+-- Host: 127.0.0.1    Database: genesis
 -- ------------------------------------------------------
--- Server version	5.6.21
+-- Server version	5.6.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -128,6 +130,7 @@ CREATE TABLE `DONACION` (
 
 LOCK TABLES `DONACION` WRITE;
 /*!40000 ALTER TABLE `DONACION` DISABLE KEYS */;
+INSERT INTO `DONACION` VALUES (1,'100 dolares americanos','2015-05-05','2015-05-05',1,1,'RCBDA'),(2,'100 dolares americanos','2015-05-05','2015-05-05',1,1,'RCBDA'),(3,'donacion de euros y dolares','2015-05-06','2015-05-06',1,1,'RCBDA'),(4,'algo de pisto','2015-05-09','2015-05-09',1,1,'RCBDA');
 /*!40000 ALTER TABLE `DONACION` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +151,7 @@ CREATE TABLE `DONACIONDETA` (
   `codprpdad` varchar(100) NOT NULL,
   `codstdprdto` varchar(20) NOT NULL,
   `codlote` int(11) NOT NULL,
-  PRIMARY KEY (`codcorrdndeta`,`codprdto`),
+  PRIMARY KEY (`codcorrdndeta`,`codprdto`,`codcorredncn`),
   KEY `fk_DNCNDETA_2_idx` (`codcorredncn`),
   KEY `fk_DNCNDETA_4_idx` (`codprpdad`),
   KEY `fk_DNCNDETA_3_idx` (`codstdprdto`),
@@ -168,6 +171,7 @@ CREATE TABLE `DONACIONDETA` (
 
 LOCK TABLES `DONACIONDETA` WRITE;
 /*!40000 ALTER TABLE `DONACIONDETA` DISABLE KEYS */;
+INSERT INTO `DONACIONDETA` VALUES (1,'DI-DOLAR-USA',100,'','',1,'SIN-P','NVO',1),(1,'DI-DOLAR-USA',100,'','',2,'SIN-P','NVO',1),(1,'DI-DOLAR-USA',500,'','',3,'SIN-P','NVO',1),(2,'DI-EURO-UE',500,'','',3,'SIN-P','NVO',1),(2,'DI-EURO-UE',1,'','',4,'SIN-P','NVO',1),(3,'DI-DOLAR-USA',1,'','',4,'SIN-P','NVO',1);
 /*!40000 ALTER TABLE `DONACIONDETA` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,6 +203,7 @@ CREATE TABLE `DONANTE` (
 
 LOCK TABLES `DONANTE` WRITE;
 /*!40000 ALTER TABLE `DONANTE` DISABLE KEYS */;
+INSERT INTO `DONANTE` VALUES (1,'Willy','2015-05-05','3333333333','33333333333333333','33333333','ss','PART');
 /*!40000 ALTER TABLE `DONANTE` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,6 +228,7 @@ CREATE TABLE `ESTDDONACION` (
 
 LOCK TABLES `ESTDDONACION` WRITE;
 /*!40000 ALTER TABLE `ESTDDONACION` DISABLE KEYS */;
+INSERT INTO `ESTDDONACION` VALUES ('RCBDA','Recibida','Recibida'),('RGSTD','Registrada','Registrada');
 /*!40000 ALTER TABLE `ESTDDONACION` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,6 +253,7 @@ CREATE TABLE `ESTDPRDTO` (
 
 LOCK TABLES `ESTDPRDTO` WRITE;
 /*!40000 ALTER TABLE `ESTDPRDTO` DISABLE KEYS */;
+INSERT INTO `ESTDPRDTO` VALUES ('NVO','Nuevo','Producto nuevo'),('PRTD','Prestado','Producto prestado'),('USD','Usado','Producto usado');
 /*!40000 ALTER TABLE `ESTDPRDTO` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +277,7 @@ CREATE TABLE `ID_GEN` (
 
 LOCK TABLES `ID_GEN` WRITE;
 /*!40000 ALTER TABLE `ID_GEN` DISABLE KEYS */;
-INSERT INTO `ID_GEN` VALUES ('user_gen',200);
+INSERT INTO `ID_GEN` VALUES ('benefi_gen',0),('donante_gen',50),('user_gen',50);
 /*!40000 ALTER TABLE `ID_GEN` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,6 +303,7 @@ CREATE TABLE `LOTE` (
 
 LOCK TABLES `LOTE` WRITE;
 /*!40000 ALTER TABLE `LOTE` DISABLE KEYS */;
+INSERT INTO `LOTE` VALUES (1,'Lote1','Lote1',NULL);
 /*!40000 ALTER TABLE `LOTE` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,6 +331,7 @@ CREATE TABLE `PRODUCTO` (
 
 LOCK TABLES `PRODUCTO` WRITE;
 /*!40000 ALTER TABLE `PRODUCTO` DISABLE KEYS */;
+INSERT INTO `PRODUCTO` VALUES ('DI-DOLAR-USA','Dolar estadounidence','Dolar estadounidence','U'),('DI-EURO-UE','Euro','Euro de la union europea','U');
 /*!40000 ALTER TABLE `PRODUCTO` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,6 +356,7 @@ CREATE TABLE `PROPIEDAD` (
 
 LOCK TABLES `PROPIEDAD` WRITE;
 /*!40000 ALTER TABLE `PROPIEDAD` DISABLE KEYS */;
+INSERT INTO `PROPIEDAD` VALUES ('SIN-P','Sin propiedad','Sin propiedad');
 /*!40000 ALTER TABLE `PROPIEDAD` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +381,7 @@ CREATE TABLE `ROL` (
 
 LOCK TABLES `ROL` WRITE;
 /*!40000 ALTER TABLE `ROL` DISABLE KEYS */;
-INSERT INTO `ROL` VALUES ('ADMIN','Administrador','Usuario con todos los privilegios'),('OTRO','Otro','Otro rol'),('USER','Usuario','Usuario con pocos privilegios');
+INSERT INTO `ROL` VALUES ('ADMIN','Administrador','Administrador'),('USR','Usuario','Usuario con bajos privilegios');
 /*!40000 ALTER TABLE `ROL` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -452,6 +462,7 @@ CREATE TABLE `TPDONANTE` (
 
 LOCK TABLES `TPDONANTE` WRITE;
 /*!40000 ALTER TABLE `TPDONANTE` DISABLE KEYS */;
+INSERT INTO `TPDONANTE` VALUES ('EMP','Empresa','Donante empresa'),('PART','Particular','Donante Particular');
 /*!40000 ALTER TABLE `TPDONANTE` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -476,6 +487,7 @@ CREATE TABLE `UMEDIDA` (
 
 LOCK TABLES `UMEDIDA` WRITE;
 /*!40000 ALTER TABLE `UMEDIDA` DISABLE KEYS */;
+INSERT INTO `UMEDIDA` VALUES ('U','Unidad','Una unidad');
 /*!40000 ALTER TABLE `UMEDIDA` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,9 +516,44 @@ CREATE TABLE `USUARIO` (
 
 LOCK TABLES `USUARIO` WRITE;
 /*!40000 ALTER TABLE `USUARIO` DISABLE KEYS */;
-INSERT INTO `USUARIO` VALUES (1,'Orlando Palencia Belloso','opalencia','ff282e89b66a474a182272cf43dc01aa0a5a654c','ADMIN'),(51,'Fionna Pocasangre ','flara','2789185b5f762fcb37b6f9ca859e2217a28f654e','USER'),(52,'Dalila Sifiro','dsifiro','5f292c097b98bc048bf97e0052e9a247e2a3d417','OTRO');
+INSERT INTO `USUARIO` VALUES (1,'Orlando','opalencia','ff282e89b66a474a182272cf43dc01aa0a5a654c','ADMIN');
 /*!40000 ALTER TABLE `USUARIO` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `vExistenciasProd`
+--
+
+DROP TABLE IF EXISTS `vExistenciasProd`;
+/*!50001 DROP VIEW IF EXISTS `vExistenciasProd`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vExistenciasProd` AS SELECT 
+ 1 AS `codprdto`,
+ 1 AS `nombre`,
+ 1 AS `cantidadprdto`,
+ 1 AS `codalmacen`,
+ 1 AS `cantidad`,
+ 1 AS `umedida`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `vExistenciasProd`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vExistenciasProd`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vExistenciasProd` AS select `p`.`codprdto` AS `codprdto`,`p`.`nombre` AS `nombre`,`a`.`cantidadprdto` AS `cantidadprdto`,`a`.`codalmacen` AS `codalmacen`,0 AS `cantidad`,`u`.`nombre` AS `umedida` from ((`PRODUCTO` `p` left join `ALMACENDETA` `a` on((`a`.`codprdto` = `p`.`codprdto`))) left join `UMEDIDA` `u` on((`u`.`codum` = `p`.`codum`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -517,4 +564,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-05 22:05:51
+-- Dump completed on 2015-05-09 21:54:54

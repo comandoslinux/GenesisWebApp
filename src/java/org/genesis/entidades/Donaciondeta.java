@@ -7,6 +7,8 @@
 package org.genesis.entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -31,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Donaciondeta.findAll", query = "SELECT d FROM Donaciondeta d"),
     @NamedQuery(name = "Donaciondeta.findByCodcorrdndeta", query = "SELECT d FROM Donaciondeta d WHERE d.donaciondetaPK.codcorrdndeta = :codcorrdndeta"),
     @NamedQuery(name = "Donaciondeta.findByCodprdto", query = "SELECT d FROM Donaciondeta d WHERE d.donaciondetaPK.codprdto = :codprdto"),
+    @NamedQuery(name = "Donaciondeta.findByCorrdona", query = "SELECT d FROM Donaciondeta d WHERE d.codcorredncn.codcorredncn = :codcorredncn"),
     @NamedQuery(name = "Donaciondeta.findByCantidad", query = "SELECT d FROM Donaciondeta d WHERE d.cantidad = :cantidad"),
     @NamedQuery(name = "Donaciondeta.findByVprpdad1", query = "SELECT d FROM Donaciondeta d WHERE d.vprpdad1 = :vprpdad1"),
     @NamedQuery(name = "Donaciondeta.findByVprpdad2", query = "SELECT d FROM Donaciondeta d WHERE d.vprpdad2 = :vprpdad2")})
@@ -38,14 +41,14 @@ public class Donaciondeta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DonaciondetaPK donaciondetaPK;
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "cantidad")
     private double cantidad;
-    @Size(max = 150)
+//    @Size(max = 150)
     @Column(name = "vprpdad1")
     private String vprpdad1;
-    @Size(max = 150)
+//    @Size(max = 150)
     @Column(name = "vprpdad2")
     private String vprpdad2;
     @JoinColumn(name = "codlote", referencedColumnName = "codlote")
@@ -60,7 +63,7 @@ public class Donaciondeta implements Serializable {
     @JoinColumn(name = "codstdprdto", referencedColumnName = "codstdprdto")
     @ManyToOne(optional = false)
     private Estdprdto codstdprdto;
-    @JoinColumn(name = "codcorredncn", referencedColumnName = "codcorredncn")
+    @JoinColumn(name = "codcorredncn", referencedColumnName = "codcorredncn", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Donacion codcorredncn;
 
@@ -76,8 +79,8 @@ public class Donaciondeta implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Donaciondeta(int codcorrdndeta, String codprdto) {
-        this.donaciondetaPK = new DonaciondetaPK(codcorrdndeta, codprdto);
+    public Donaciondeta(BigInteger codcorrdndeta, String codprdto, BigInteger codcorredncn) {
+        this.donaciondetaPK = new DonaciondetaPK(codcorrdndeta, codprdto, codcorredncn);
     }
 
     public DonaciondetaPK getDonaciondetaPK() {
@@ -154,19 +157,53 @@ public class Donaciondeta implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (donaciondetaPK != null ? donaciondetaPK.hashCode() : 0);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.donaciondetaPK);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.cantidad) ^ (Double.doubleToLongBits(this.cantidad) >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.vprpdad1);
+        hash = 97 * hash + Objects.hashCode(this.vprpdad2);
+        hash = 97 * hash + Objects.hashCode(this.codlote);
+        hash = 97 * hash + Objects.hashCode(this.producto);
+        hash = 97 * hash + Objects.hashCode(this.codprpdad);
+        hash = 97 * hash + Objects.hashCode(this.codstdprdto);
+        hash = 97 * hash + Objects.hashCode(this.codcorredncn);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Donaciondeta)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Donaciondeta other = (Donaciondeta) object;
-        if ((this.donaciondetaPK == null && other.donaciondetaPK != null) || (this.donaciondetaPK != null && !this.donaciondetaPK.equals(other.donaciondetaPK))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Donaciondeta other = (Donaciondeta) obj;
+        if (!Objects.equals(this.donaciondetaPK, other.donaciondetaPK)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.cantidad) != Double.doubleToLongBits(other.cantidad)) {
+            return false;
+        }
+        if (!Objects.equals(this.vprpdad1, other.vprpdad1)) {
+            return false;
+        }
+        if (!Objects.equals(this.vprpdad2, other.vprpdad2)) {
+            return false;
+        }
+        if (!Objects.equals(this.codlote, other.codlote)) {
+            return false;
+        }
+        if (!Objects.equals(this.producto, other.producto)) {
+            return false;
+        }
+        if (!Objects.equals(this.codprpdad, other.codprpdad)) {
+            return false;
+        }
+        if (!Objects.equals(this.codstdprdto, other.codstdprdto)) {
+            return false;
+        }
+        if (!Objects.equals(this.codcorredncn, other.codcorredncn)) {
             return false;
         }
         return true;
@@ -174,7 +211,8 @@ public class Donaciondeta implements Serializable {
 
     @Override
     public String toString() {
-        return "org.genesis.entidades.Donaciondeta[ donaciondetaPK=" + donaciondetaPK + " ]";
+        return "Donaciondeta{" + "donaciondetaPK=" + donaciondetaPK + ", cantidad=" + cantidad + ", vprpdad1=" + vprpdad1 + ", vprpdad2=" + vprpdad2 + ", codlote=" + codlote + ", producto=" + producto + ", codprpdad=" + codprpdad + ", codstdprdto=" + codstdprdto + ", codcorredncn=" + codcorredncn + '}';
     }
+
     
 }

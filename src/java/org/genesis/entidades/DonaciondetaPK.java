@@ -7,6 +7,8 @@
 package org.genesis.entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -19,29 +21,32 @@ import javax.validation.constraints.Size;
  */
 @Embeddable
 public class DonaciondetaPK implements Serializable {
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "codcorrdndeta")
-    private int codcorrdndeta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    private BigInteger codcorrdndeta;
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 100)
     @Column(name = "codprdto")
     private String codprdto;
+    @Column(name = "codcorredncn")
+    private BigInteger codcorredncn;
 
     public DonaciondetaPK() {
     }
 
-    public DonaciondetaPK(int codcorrdndeta, String codprdto) {
+    public DonaciondetaPK(BigInteger codcorrdndeta, String codprdto, BigInteger codcorredncn) {
         this.codcorrdndeta = codcorrdndeta;
         this.codprdto = codprdto;
+        this.codcorredncn = codcorredncn;
     }
 
-    public int getCodcorrdndeta() {
+    public BigInteger getCodcorrdndeta() {
         return codcorrdndeta;
     }
 
-    public void setCodcorrdndeta(int codcorrdndeta) {
+    public void setCodcorrdndeta(BigInteger codcorrdndeta) {
         this.codcorrdndeta = codcorrdndeta;
     }
 
@@ -53,25 +58,39 @@ public class DonaciondetaPK implements Serializable {
         this.codprdto = codprdto;
     }
 
+    public BigInteger getCodcorredncn() {
+        return codcorredncn;
+    }
+
+    public void setCodcorredncn(BigInteger codcorredncn) {
+        this.codcorredncn = codcorredncn;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (int) codcorrdndeta;
-        hash += (codprdto != null ? codprdto.hashCode() : 0);
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.codcorrdndeta);
+        hash = 41 * hash + Objects.hashCode(this.codprdto);
+        hash = 41 * hash + Objects.hashCode(this.codcorredncn);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DonaciondetaPK)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        DonaciondetaPK other = (DonaciondetaPK) object;
-        if (this.codcorrdndeta != other.codcorrdndeta) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if ((this.codprdto == null && other.codprdto != null) || (this.codprdto != null && !this.codprdto.equals(other.codprdto))) {
+        final DonaciondetaPK other = (DonaciondetaPK) obj;
+        if (!Objects.equals(this.codcorrdndeta, other.codcorrdndeta)) {
+            return false;
+        }
+        if (!Objects.equals(this.codprdto, other.codprdto)) {
+            return false;
+        }
+        if (!Objects.equals(this.codcorredncn, other.codcorredncn)) {
             return false;
         }
         return true;
@@ -79,7 +98,8 @@ public class DonaciondetaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "org.genesis.entidades.DonaciondetaPK[ codcorrdndeta=" + codcorrdndeta + ", codprdto=" + codprdto + " ]";
+        return "DonaciondetaPK{" + "codcorrdndeta=" + codcorrdndeta + ", codprdto=" + codprdto + ", codcorredncn=" + codcorredncn + '}';
     }
+
     
 }

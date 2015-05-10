@@ -39,17 +39,17 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 100)
     @Column(name = "codprdto")
     private String codprdto;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 150)
     @Column(name = "nombre")
     private String nombre;
-    @Size(max = 150)
+//    @Size(max = 150)
     @Column(name = "descripcion")
     private String descripcion;
     @JoinColumn(name = "codum", referencedColumnName = "codum")
